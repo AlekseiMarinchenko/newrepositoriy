@@ -1,88 +1,69 @@
-Y = [0.25, 0.35, 0.55, 0.75, 0.95]
-Z = [2.93, 3.68, 5.87, 8.4, 10.88]
-sigmaA = 0
-E1 = 0
-E2 = 0
-a = 0
-ch = 0
-zn = 0
+p10x = []
+m1 = 52.5
+v10x = [0.32, 0.31, 0.32, 0.32,0.32]
+p1x = []
+v1x = [-0.06,-0.06,-0.07,-0.06,-0.07]
+p2x = []
+m2 = 48
+v2x = [0.1,0.09,0.1,0.1,0.1]
+v = [0.13,0.15,0.14,0.15,0.14]
+v1 = [0.14,0.21,0.22,0.24,0.3,0.31,0.4]
+v2 = [0.38,0.5,0.54,0.6,0.67,0.68,0.8]
+m = [1.66,2.51,3.36,4.21,5.06,5.91,6.76]
 for i in range(5):
-    ch += Z[i] * Y[i]
-    zn += Z[i]** 2
-a = ch/zn
-print('a=', a)
+    p10x.append(m1 * v10x[i])
+    p1x.append(m1 * v1x[i])
+    p2x.append(m2 * v2x[i])
+print('p1x', p1x)
+print('p2x', p2x)
+print('p10x', p10x)
+dp = []
+dw = []
 for i in range(5):
-    E1 += (Y[i]-a*Z[i])**2
-    E2 += Z[i]**2
-sigmaA = (E1/ (4*E2))**0.5
-print('sigmaA=', sigmaA)
-deltaAmaloe = 2*sigmaA
-print('deltaAmaloe=', deltaAmaloe)
-Epsilon_Alpha = deltaAmaloe/a
-print('epsilon alpha v procentah', Epsilon_Alpha)
-h0 = 180
-h0sht = 180
-x = 220
-xsht = 1000
-h = [190, 200,207,216,227]
-hsht = [180,180,180,185,190]
-sinus = []
+    dp.append(((p1x[i] + p2x[i])/p10x[i]) - 1)
+    dw.append(((m1*v1x[i]**2 + m2*v2x[i]**2)/ m1*v10x[i]**2)-1)
+print('dp', dp)
+print('dw',dw)
+dpcherta = sum(dp)/5
+dwcherta = sum(dw)/5
+student = 2.77
+Ep = 0
+Ew = 0
 for i in range(5):
-    sinus.append(abs(((h0 - h[i]) - (h0sht - hsht[i]))/(xsht-x)))
-print('sinus alpha', sinus)
-t1sr = [1.52, 0.96,0.76,0.68,0.58]
-t2sr = [4.9,3.3,2.6,2.3,1.98]
-asr = []
+    Ep += (dp[i] - dpcherta)**2
+    Ew += (dw[i] - dwcherta)**2
+deltadpcherta = student * (Ep/20)**0.5
+deltadwcherta = student * (Ew/20)**0.5
+print('deltadpcherta', deltadpcherta)
+print('deltadwcherta', deltadwcherta)
+p = [(m1 + m2) * v[i] for i in range(5)]
+print('p', p)
+dp9 = [p[i]/p10x[i] - 1 for i in range(5)]
+print('dp9', dp9)
+dwe = [((m1 + m2)*v2x[i]**2)/(m1*v10x[i]**2) - 1 for i in range(5)]
+print('dwe', dwe)
+dwt = -(m2)/(m1 + m2)
+print('dwt', dwt)
+x1 = 0.15
+x2 = 0.8
+g = 9.82
+a = [(v2[i] - v1[i])**2/(2*(x2-x1)) for i in range(7)]
+T = [m[i]*(g - a[i]) for i in range(7)]
+print('a', a)
+print('T', T)
+E =0
 for i in range(5):
-    asr.append((2*(1 - 0.22))/ (t2sr[i]**2 - t1sr[i]**2))
-print('asr', asr)
-D = 0
-E1 = 0
-E2 = 0
+    E += (dp[i] - dpcherta)**2
+deltadpcherta = 2.77*(E/20)**0.5
+epsilonp = deltadpcherta/ dpcherta
+E =0
 for i in range(5):
-    E1 += sinus[i]**2
-    E2 += sinus[i]
-D = E1 - (E2**2)/5
-print('D', D)
-gspb = 9.8195
-deltax = 0.003
-deltat = 0.07
-deltaA = []
-for i in range(5):
-    deltaA.append(asr[i]*(((2*deltax**2)/Y[i]**2)+4*(((t1sr[i])*deltat)**2+((t2sr[i])*deltat)**2)/(t2sr[i]**2 - t1sr[i]**2)**2)**0.5)
-print('deltaA', deltaA)
-E1 = 0
-E2 = 0
-E3 = 0
-E4 = 0
-E5 = 0
-B = 0
-for i in range(5):
-    E1 += asr[i]*sinus[i]
-    E2 += asr[i]
-    E3 += sinus[i]
-    E4 += sinus[i]**2
-    E5 += sinus[i]
-B = (E1 - (E2 * E3)/5)/(E4 - (E5**2)/5)
-print('B', B)
-A = (E2 - B*E3)/5
-print('A', A)
-d = []
-D = []
-for i in range(5):
-    d.append(asr[i]-(A+B*sinus[i]))
-D = E4 - (E5**2)/5
-print('d', d)
-print('D', D)
-sigmag = 0
-e1 = 0
-for i in range(5):
-    e1 += d[i]**2
-sigmag = 1.95
-print('sigmag', sigmag)
-deltag = 2*sigmag
-print('deltag', deltag)
-Epsilon_g = deltag/gspb
-print('Epsilon g v procentah', Epsilon_g)
-print('raznitca g', B - gspb)
-
+    E += (dw[i] - dwcherta)**2
+deltadwcherta = 2.77*(E/20)**0.5
+epsilonw = deltadwcherta/ dwcherta
+print(dpcherta)
+print(deltadpcherta)
+print(epsilonp)
+print(dwcherta)
+print(deltadwcherta)
+print(epsilonw)
