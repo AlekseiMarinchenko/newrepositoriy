@@ -1,0 +1,19 @@
+def monomial_to_string(coeff: float, d: int) -> str:
+    if d == 0:
+        return f'{coeff}'
+    elif d == 1:
+        return f'{coeff}x'
+    return f'{coeff}x^{d}'
+
+
+def to_string(p: polynomial):
+    monomials = []
+    for d in reversed(range(len(p))):  # идем по убыванию степеней
+        monomials.append(monomial_to_string(p[d], d))
+    result = ' + '.join(monomials)
+    if result[-1] == '0':
+
+        result = result[:max(result.rfind('+'), result.rfind('-'))]
+        return result.replace(' + -', ' - ').replace('1x', 'x')
+    else:
+        return result.replace(' + -', ' - ').replace('1x', 'x')
