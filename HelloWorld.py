@@ -29,5 +29,22 @@ def to_latex(p: polynomial) -> str:
         if flag == True:
             b += c[i]
     b = b.replace(' + - ', ' - ').replace(' - + ', ' + ')
-    return b
+    z = ''
+    for i in range(len(b) - 1):
+        if b[i] == '^':
+            z += '^{'
+        elif b[i] + b[i + 1] == ' +':
+            z += '} '
+        elif b[i] + b[i + 1] == ' -':
+            z+= '} '
+        else:
+            z += b[i]
+    a = ''
+    for i in b[::-1]:
+        if i != '^':
+            a += i
+        else:
+            break
+    return z + a[:-1] + '}'
+
 
