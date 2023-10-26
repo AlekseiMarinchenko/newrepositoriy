@@ -221,11 +221,14 @@ def to_string(p: polynomial):
     monomials = []
     for d in reversed(range(len(p))):  # идем по убыванию степеней
         monomials.append(monomial_to_string(p[d], d))
-    result = ' + '.join(monomials)
-    if result[-1] == '0':
-        return result[:-4].replace(' + -', ' - ').replace('1', '')
-    else:
-        return result.replace(' + -', ' - ').replace('1', '')
+    result = ''
+    for i in monomials:
+        if i[0] != '0':
+            result += i + ' + '
+    result = result[:max(result.rfind('+'), result.rfind('-'))]
+    if result[:2] == '1x':
+        result = result[1:]
+    return result.replace(' + -', ' - ').replace(' 1x ', ' x ').replace('-1x', '-x')
 
 """**2.1. Улучшенный вывод**
 
@@ -251,21 +254,31 @@ def to_latex(p: polynomial) -> str:
     c = to_string(p)
     b = ''
     flag = True
-    for i in range(len(c)):
-        if c[i] == '0':
+    for i in range(len(c) - 1):
+        if c[i] == '0' and c[i + 1] == 'x':
             flag = False
         elif c[i] == '+' or c[i] == '-':
             flag = True
         if flag == True:
             b += c[i]
     b = b.replace(' + - ', ' - ').replace(' - + ', ' + ')
-    x = [str(i) for i in range(10)]
-    v = 0
-    for i in b:
-        if i not in x:
-            v += 1
-        else:break
-    return b[v:]
+    z = ''
+    for i in range(len(b) - 1):
+        if b[i] == '^':
+            z += '^{'
+        elif b[i] + b[i + 1] == ' +':
+            z += '} '
+        elif b[i] + b[i + 1] == ' -':
+            z += '} '
+        else:
+            z += b[i]
+    a = ''
+    for i in b[::-1]:
+        if i != '^':
+            a += i
+        else:
+            break
+    return z + a[:-1] + '}'
 
 # Проверка
 
@@ -372,5 +385,35 @@ print(from_string('x^7 - 2x^4 + 1'))
 """
 
 def find_root(p: polynomial) -> float | None:
-    ...
+    return None
 
+def f(x: float) -> float:
+    if x < 2:
+        return x
+    else:
+        return 2 * f(x**0.5) + 2*x -1
+print(f(1))
+print(f(2))
+print(f(144))
+
+def solve_hanoi(i, j, n):
+    '''
+    Выводит действия для переноса башни высоты n
+    с i-го стержня на j-й
+    '''
+    if n == 1:
+        print(f'{i} -> {j}')
+        return
+    k = 3 - i - j  # столбец, который не i и не j
+    solve_hanoi(i, k, n - 1)
+    print(f'{i} -> {j}')
+    solve_hanoi(k, j, n - 1)
+
+steps = solve_hanoi(0, 2, 4)
+print(steps)  # должно выводить массив строк вида "i -> j"
+
+def recursive_approximation(a: float, k: float, n: int) -> float:
+    if n == 0:
+        return 1
+    else:
+        return ((k - 1)*recursive_approximation(a, k, n - 1) + (a/recursive_approximation(a,k,n - 1)**(k-1)))/k
