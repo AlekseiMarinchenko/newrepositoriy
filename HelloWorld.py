@@ -111,3 +111,32 @@ def scramble(s, array):
             if i == array[j]:
                 new += s[j]
     return new
+def close_primes(x, y):
+    def prime(n):
+        if n == 1:
+            return False
+        for i in range(2, int(n**0.5) + 1):
+            if n % i == 0:
+                return False
+        return True
+    if prime(x) == False or prime(y) == False:
+        return False
+    c = 0
+    for i in range(x + 1, y):
+        if prime(i):
+            c += 1
+    if c > 1:
+        return False
+    else:
+        return True
+
+def remove_doubles(s):
+    r = ''
+    i = 0
+    while i < len(s):
+        if i <= len(s) - 3 and s[i] == s[i + 1] == s[i + 2]:
+            i += 3
+        else:
+            r += s[i]
+            i += 1
+    return r
