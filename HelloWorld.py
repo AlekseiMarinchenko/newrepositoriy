@@ -1,142 +1,27 @@
-def exchange(lst):
-    if isinstance(lst[0], int) and isinstance(lst[1], int):
-        a = str(lst[0])
-        b = str(lst[1])
-        new_one = int(a[:-1] + b[-1])
-        new_two = int(b[:-1] + a[-1])
-        return abs(new_two - new_one)
-    else:
-        return 'invalid elements'
-def sorting_cards(cards):
-    cards1 = []
-    z = ['T', 'Q', 'J', 'K', 'A']
-    for i in cards:
-        if i not in z:
-            cards1.append(int(i))
-        else:
-            if i == 'T':
-                cards1.append(10)
-            elif i == 'J':
-                cards1.append(11)
-            elif i == 'Q':
-                cards1.append(12)
-            elif i == 'K':
-                cards1.append(13)
-            elif i == 'A':
-                cards1.append(14)
-    cards2 = sorted(cards1)
-    cards3 = []
-    for i in cards2:
-        if len(str(i)) < 2:
-            cards3.append(str(i))
-        else:
-            if i == 10:
-                cards3.append('T')
-            elif i == 11:
-                cards3.append('J')
-            elif i == 12:
-                cards3.append('Q')
-            elif i == 13:
-                cards3.append('K')
-            elif i == 14:
-                cards3.append('A')
-    return cards3
+def happy_new_year(seg: int):
+    print(' ' * seg + '<>')
+    for lvl in range(1, seg + 1):
+        for i in range(0, lvl):
+            print(' ' * (seg - i) + '/' + ' ' * 2 * i + chr(92))
+        print(' ' * (seg - i - 1) + '/' + '_' * 2 * (i + 1) + chr(92))
+    print(' ' * seg + '||')
+happy_new_year(10)
 
-# def check_password(s):
-#     A = ['QWERTYUIOPASDFGHJKLZXCVBNM']
-#     a = ['qwertyuiopasdfghjklzxcvbnm']
-#     b = ['!@$%*.,?']
-#     c = ['0123456789']
-#     counta = countA = countb = countc = 0
-#     for i in s:
-#         if i in a:
-#             counta += 1
-#         elif i in A:
-#             countA += 1
-#         elif i in b:
-#             countb += 1
-#         elif i in c:
-#             countc += 1
-#         else:
-#             return 'not valid'
-#     return countc, counta, countb, countA
-# print(check_password("")) # должно вернуть "not valid"
-# print(check_password("password")) # должно вернуть "not valid"
-# print(check_password("P1@p")) # должно вернуть "not valid"
-# print(check_password("P1@pP1@p")) # должно вернуть "valid"
-# print(check_password("P1@pP1@pP1@pP1@pP1@pP1@p")) # должно вернуть "not valid"
-# print(check_password("Paaaaaa222!!!")) # должно вернуть "valid"
-def sorted_people(a):
-    b = []
-    rost = []
-    for i in range(len(a)):
-        if a[i] == -1:
-            b.append(i)
-        else:
-            rost.append(a[i])
-    new_rost = sorted(rost)
-    n = []
-    c = 0
-    for i in range(len(a)):
-        if a[i] == -1:
-            n.append(-1)
-        else:
-            elem = new_rost[c]
-            n.append(elem)
-            c += 1
-    return n
 
-def cats_and_mice(mapping, moves):
-    if 'C' not in mapping or 'm' not in mapping:
-        return 'We need two animals!'
-    for i, line in enumerate(mapping.splitlines()):
-        cat_index = line.find('C')
-        mouse_index = line.find('m')
-        if cat_index != -1:
-            cat_position = (i, cat_index)
-        if mouse_index != -1:
-            mouse_position = (i, mouse_index)
-    vertical_moves = abs(cat_position[0] - mouse_position[0]) * 3
-    horizontal_moves = abs(cat_position[1] - mouse_position[1]) * 2
-    if vertical_moves + horizontal_moves <= moves:
-        return 'Caught!'
-    else:
-        return 'Run!'
+def consequence(n: int):
+    def func():
+        return lambda x: (x - 2)*(x-13)*(x-2023)*(x - 2024)/((1-2)*(1 - 13)*(1 -2023)*(1-2024)) +2* (x - 1)*(x-13)*(x-2023)*(x - 2024)/((2-1)*(2 - 13)*(2 -2023)*(2-2024)) + 6*(x - 2)*(x-1)*(x-2023)*(x - 2024)/((13-2)*(13 - 1)*(13 -2023)*(13-2024)) + 64*(x - 2)*(x-13)*(x-1)*(x - 2024)/((2023-2)*(2023 - 13)*(2023 - 1)*(2023 - 2024)) + 64*(x - 2)*(x-13)*(x-2023)*(x - 1)/((2024-2)*(2024 - 13)*(2024 -2023)*(2024 - 1))
+    return func()(n)
+print(consequence(2024))
 
-def scramble(s, array):
-    a = [i for i in range(len(array))]
-    new = ''
-    for i in range(len(a)):
-        for j in range(len(array)):
-            if i == array[j]:
-                new += s[j]
-    return new
-def close_primes(x, y):
-    def prime(n):
-        if n == 1:
-            return False
-        for i in range(2, int(n**0.5) + 1):
-            if n % i == 0:
-                return False
-        return True
-    if prime(x) == False or prime(y) == False:
-        return False
-    c = 0
-    for i in range(x + 1, y):
-        if prime(i):
-            c += 1
-    if c > 1:
-        return False
-    else:
-        return True
 
-def remove_doubles(s):
-    r = ''
-    i = 0
-    while i < len(s):
-        if i <= len(s) - 3 and s[i] == s[i + 1] == s[i + 2]:
-            i += 3
-        else:
-            r += s[i]
-            i += 1
-    return r
+def unix2dos(filename: str):
+    f = open(filename, "r")
+    s = f.read()
+    new = s.replace(chr(10), chr(10) + chr(13))
+    with open (filename, "w") as f:
+        f.write('')
+        f.write(new)
+    f.close()
+#Функция unix2dos не факт что работает, так как мы хз как ее проверить на правильность. Питон работает в аски, а юникс и дос он тупо переводит в аски, так что проверьте если знаете как. 
+# Остальное напишем как-нибудь
