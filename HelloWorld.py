@@ -42,3 +42,16 @@ result = json2yaml_noexcept('New document 1.json')
 print(result)
 
 #Задание с 4 програмистами мы поняли как делать только споткнулись на последнем этапе. Нужно посчитать интеграл на промежутке от 0 до 107 включительно, для функции x^(ix), где i - мнимая единица. Кто сможет как-нить это посчитать напишите нам пжл
+
+
+# Считываем датасет и вносим в папку нужную, чтоб питон мог воспринять это. ниже указываем название,
+# этот код для датасета https://www.kaggle.com/datasets/mragpavank/heart-diseaseuci   в графике меняется цвет в зависимости от cp
+import pandas as pd
+df = pd.read_csv('heart.csv')
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10, 6))
+plt.scatter(df['age'], df['chol'], c = df['cp'], alpha=0.9, s = 10)
+plt.xlabel('Возраст')
+plt.ylabel('Уровень холестерина')
+plt.title('Зависимость между возрастом и уровнем холестерина')
+plt.show()
