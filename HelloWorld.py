@@ -24,4 +24,21 @@ def unix2dos(filename: str):
         f.write(new)
     f.close()
 #Функция unix2dos не факт что работает, так как мы хз как ее проверить на правильность. Питон работает в аски, а юникс и дос он тупо переводит в аски, так что проверьте если знаете как. 
-# Остальное напишем как-нибудь
+
+def json2yaml_noexcept(filename):
+    import json
+    import yaml
+    from pathlib import Path
+    try:
+        with open(filename, 'r') as file:
+            data = json.load(file)
+        yaml_filename = Path(filename).with_suffix('.yaml')
+        with open(yaml_filename, 'w') as file:
+            yaml.dump(data, file, default_flow_style=False)
+        return data
+    except Exception as ex:
+        return {'exception': ex}
+result = json2yaml_noexcept('New document 1.json')
+print(result)
+
+#Задание с 4 програмистами мы поняли как делать только споткнулись на последнем этапе. Нужно посчитать интеграл на промежутке от 0 до 107 включительно, для функции x^(ix), где i - мнимая единица. Кто сможет как-нить это посчитать напишите нам пжл
