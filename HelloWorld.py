@@ -36,3 +36,19 @@ def json2yaml_noexcept(filename):
         return data
     except Exception as ex:
         return {'exception': ex}
+
+
+# И вдруг кому-то мое 6-ое понадобиться (Орешников поставил 7, Дашка поставит где-то 4, Федя хз скок)
+#Cсылка на дата сет
+# https://www.kaggle.com/datasets/redwankarimsony/heart-disease-data
+import pandas
+import pandas as pds
+import matplotlib.pyplot as plt
+df = pandas.read_csv('heart_disease_uci.csv')
+plt.figure(figsize=(20,20))
+colors = {'typical angina': 'green', 'asymptomatic': 'blue', 'non-anginal': 'red', 'atypical angina': 'black'}
+plt.scatter(df['age'], df['chol'], c=df['cp'].map(colors), alpha=0.9, s = 10)
+plt.title('Зависимость уровня холестирина от возраста')
+plt.xlabel('Возраст')
+plt.ylabel('Уровень холестерина')
+plt.show()
