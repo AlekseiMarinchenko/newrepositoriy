@@ -73,3 +73,24 @@ def polynomial_to_string(a):
             result += str(a[i]) + 'x' + '^' + str(i) + '  +  '
     result = result[:-7]
     return result.replace('+  -', '-  ').replace('x^1 ', 'x ')
+
+
+
+
+def happy_new_year(seg: int):
+    print(' ' * seg + '<>')
+    for lvl in range(1, seg + 1):
+        for i in range(0, lvl):
+            if i == 0:
+                str = ' ' * (seg - i) + '/' + ' ' * 2 * i + chr(92)
+                print(str)
+            else:
+                igr = randint(i+1, 2*i+2)
+                str = ' ' * (seg - i) + '/' + ' ' * 2 * i + chr(92)
+                if igr > seg:
+                    print(str[:igr] + '*' + str[igr + 1:])
+                else:
+                    print(str)
+        print(' ' * (seg - i - 1) + '/' + '_' * 2 * (i + 1) + chr(92))
+    print(' ' * seg + '||')
+    return
