@@ -66,13 +66,13 @@ def polynomial_to_string(a):
         if a[i] == 0:
             continue
         elif a[i] == 1:
-            result += 'x' + '^' + str(i) + '  +  '
+            result += 'x' + '^' + str(i) + ' + '
         elif a[i] == -1:
-            result += '-x' + '^' + str(i) + '  +  '
+            result += '-x' + '^' + str(i) + ' + '
         else:
-            result += str(a[i]) + 'x' + '^' + str(i) + '  +  '
-    result = result[:-7]
-    return result.replace('+  -', '-  ').replace('x^1 ', 'x ')
+            result += str(a[i]) + 'x' + '^' + str(i) + ' + '
+    result = result[:-5]
+    return result.replace('+ -', '- ').replace('x^1 ', 'x')
 
 
 
