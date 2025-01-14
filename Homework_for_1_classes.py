@@ -24,12 +24,16 @@ def polynomial_add(a, b):
             result = result[:-1]
         else:
             break
+    if result == []:
+        return [0]
     return result
 
 def polynomial_derivative(a):
     result = []
     for i in range(len(a)):
         result.append(a[i] * i)
+    if result == [0]:
+        return result
     return result[1:]
 
 def polynomial_multiply(a, b):
