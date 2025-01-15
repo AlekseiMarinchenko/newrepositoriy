@@ -87,10 +87,10 @@ def polynomial_to_string(a):
     result+= ' '
     if a[0] != 0:
         result += str(a[0])
-        return result.replace('+ -', '- ').replace('x^1 ', 'x ').replace('+  -', '- ')
+        return result.replace('+ -', '- ').replace('x^1 ', 'x ').replace('+  -', '- ').replace('+  ', '+ ')
     else:
         result = result[:-3]
-    return result.replace('+ -', '- ').replace('x^1 ', 'x ').replace('+  -', '- ')[:-1]
+    return result.replace('+ -', '- ').replace('x^1 ', 'x ').replace('+  -', '- ').replace('+  ', '+ ')[:-1]
 
 
 
