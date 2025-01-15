@@ -83,10 +83,6 @@ import numpy
 def polynomial_divide(a, b):
     mod = numpy.polydiv(a, b)[1]
     div = list(numpy.polydiv(a, b)[0])
-    for i in range(len(div)):
-        div[i] = int(div[i])
-    for i in range(len(mod)):
-        mod[i] = int(mod[i])
     d = []
     for i in reversed(range(len(div))):
         d.append(div[i])
