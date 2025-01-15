@@ -33,11 +33,14 @@ def polynomial_derivative(a):
     for i in range(len(a)):
         result.append(a[i] * i)
     res1 = result[::-1]
-    while res1[0] == 0:
-        res1 = res1[1:]
+    if len(res1) > 1:
+        while res1[0] == 0:
+            res1 = res1[1:]
+    else:
+        return [0]
     result = res1[::-1]
     if result == [0]:
-        return result
+        return [0]
     return result[1:]
 
 def polynomial_multiply(a, b):
