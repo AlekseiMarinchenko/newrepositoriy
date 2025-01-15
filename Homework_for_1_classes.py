@@ -88,8 +88,9 @@ def polynomial_to_string(a):
     return result.replace('+ -', '- ').replace('x^1', 'x')
 
 
-import numpy
+
 def polynomial_divide(a, b):
+    import numpy
     mod = numpy.polydiv(a, b)[1]
     div = list(numpy.polydiv(a, b)[0])
     d = []
