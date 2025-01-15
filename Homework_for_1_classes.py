@@ -84,11 +84,12 @@ def polynomial_to_string(a):
             result += '-x' + '^' + str(i) + ' + '
         else:
             result += str(a[i]) + 'x' + '^' + str(i) + ' + '
+    result+= ' '
     if a[0] != 0:
         result += str(a[0])
     else:
         result = result[:-3]
-    return result.replace('+ -', '- ').replace('x^1', 'x')
+    return result.replace('+ -', '- ').replace('x^1 ', 'x ').replace('+  -', '- ')
 
 
 
