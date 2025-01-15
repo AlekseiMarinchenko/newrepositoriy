@@ -32,6 +32,10 @@ def polynomial_derivative(a):
     result = []
     for i in range(len(a)):
         result.append(a[i] * i)
+    res1 = result[::-1]
+    while res1[0] == 0:
+        res1 = res1[1:]
+    result = res1[::-1]
     if result == [0]:
         return result
     return result[1:]
