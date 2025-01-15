@@ -71,6 +71,8 @@ def polynomial_find_root(a):
 def polynomial_to_string(a):
     result = ''
     for i in reversed(range(len(a))):
+        if i == 0:
+            break
         if a[i] == 0:
             continue
         elif a[i] == 1:
@@ -79,8 +81,11 @@ def polynomial_to_string(a):
             result += '-x' + '^' + str(i) + ' + '
         else:
             result += str(a[i]) + 'x' + '^' + str(i) + ' + '
-    result = result[:-5]
-    return result.replace('+ -', '- ').replace('x^1 ', 'x')
+    if a[0] != 0:
+        result += str(a[0])
+    else:
+        result = result[:-3]
+    return result.replace('+ -', '- ').replace('x^1', 'x')
 
 
 import numpy
